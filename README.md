@@ -1,2 +1,3 @@
 # ProjetosDoEclipse
-Projeto de desenvolvimento em Java
+
+Implementação de Algoritmos Genéticos em JAVA 
