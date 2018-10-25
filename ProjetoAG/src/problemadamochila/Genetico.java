@@ -124,14 +124,16 @@ public class Genetico {
 		
 		int[] pai0 = pais.get(0).getGenes();
 		int[] pai1 = pais.get(1).getGenes();
+		
+		//Soma convolução
 		int[] convolucao = somaConvolucao(pai0, pai1);
 		
-		
-                int[] filho0 = new int[8]; 
+           
+				int[] filho0 = new int[8]; 
                 System.arraycopy(convolucao,0,filho0,0,7);
                 
                 int[] filho1 = new int[8];
-                
+    
                 int pontoCorte1, qtdGenes, pontoCorte2;
 
 		if (r.nextDouble() <= TAXADECRUZAMENTO) {
