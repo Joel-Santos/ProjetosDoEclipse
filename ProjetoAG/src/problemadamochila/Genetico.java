@@ -35,7 +35,7 @@ public class Genetico {
                         populacao = gerarPopulacao();
 
 			contaEstagnacao();
-			if(contEstagnar >= 200)
+			if(contEstagnar >= 300)
 				break;
 
 		} while (++geracao < MAXIMODEGERACOES);
@@ -155,10 +155,10 @@ public class Genetico {
                         }
             	} 
                 
-              
+       //passando gemeos       
 		ArrayList<Individuo> filhos = new ArrayList<>();
 		filhos.add(new Individuo(filho0));
-		filhos.add(new Individuo(filho1));
+		filhos.add(new Individuo(filho0));
 
 		return filhos;
 	}
@@ -172,14 +172,21 @@ public class Genetico {
 		}
 	}
 	
-	//SOMA CONVOLUÇÃO
+	//SOMA CONVOLUÇÃO COM UMA TENTATIVA DE RAMPA
 	public static int[] somaConvolucao(int[] geneFilho1, int[] geneFilho2){
         int[] soma = new int[geneFilho1.length + geneFilho2.length - 1];
    
         for(int i = 0; i < soma.length; i++){
             for(int j = 0; j < geneFilho2.length; j++){
-                if((i-j) >= 0 && (i-j) < geneFilho1.length)
-                    soma[i] += geneFilho2[j] * geneFilho1[i-j]; 
+                if((i-j) >= 0 && (i-j) < geneFilho1.length){
+                    soma[i] += geneFilho2[j] * geneFilho1[i-j];
+                    //System.out.println(soma[i]);
+                    if(soma[i]>7){
+                    	soma[i]=1;
+                    }else{
+                    	soma[i]=0;
+                    }
+                }
             }
         }
         return soma;
