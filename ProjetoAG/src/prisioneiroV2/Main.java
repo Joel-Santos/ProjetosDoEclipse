@@ -28,7 +28,7 @@ public class Main {
 		GAConfig.nEpocas		= 5;
 		
 		GAConfig.delta			= 0.0;		
-		GAConfig.pMutacao 		= 0.01;
+		GAConfig.pMutacao 		= 0.5;
 		
 		Populacao populacao = new Populacao();
 		
