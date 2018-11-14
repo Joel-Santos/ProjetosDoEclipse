@@ -1,15 +1,16 @@
 package problemadamochila;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Genetico {
 	//configuracao dos parametros do algoritmo genetico
 	public static final double TAXADEMUTACAO = 0.5;
 	static final double TAXADECRUZAMENTO = 0.9;
-	static final boolean ELITISMO = true;
+	static final boolean ELITISMO = false;
 	static final int TAMANHODAPOPULACAO = 8;
-	static final int MAXIMODEGERACOES = 500;
+	static final int MAXIMODEGERACOES = 1000;
         //-------------------------------------------------
         
 	private Populacao populacao;
@@ -35,7 +36,7 @@ public class Genetico {
                         populacao = gerarPopulacao();
 
 			contaEstagnacao();
-			if(contEstagnar >= 300)
+			if(contEstagnar >= 100)
 				break;
 
 		} while (++geracao < MAXIMODEGERACOES);
@@ -119,24 +120,42 @@ public class Genetico {
             return 0;
         }
 
-        //cruzamento com 2 pontos de corte aleatórios
+        //cruzamento com 2 pontos de corte aleatÃ³rios
 	private ArrayList<Individuo> cruzamento(ArrayList<Individuo> pais) {
 		
 		int[] pai0 = pais.get(0).getGenes();
 		int[] pai1 = pais.get(1).getGenes();
 		
-		//Soma convolu��o
+		//Soma convolução
 		int[] convolucao = somaConvolucao(pai0, pai1);
+		//Saida Normalizada
+		int[] convNormalizada =  normalizarSaida(convolucao);
 		
-           
+          
 				int[] filho0 = new int[8]; 
-                System.arraycopy(convolucao,0,filho0,0,7);
+               // System.arraycopy(convolucao,0,filho0,0,7);
+				for(int i=0; i<filho0.length;i++)
+		        	filho0[i] = convNormalizada[i];
+				
+                int[] filho1 = new int[8]; 
+                //System.arraycopy(convolucao,7,filho2,0,7);
+                int j=convolucao.length/2;
+                for(int i=0; i<filho1.length; i++, j++)
+                	filho1[i] = convNormalizada[j];
                 
-                int[] filho1 = new int[8];
+
+                int[] filho2 = new int[8];
+                int k=4;
+                for(int i=0; i<filho2.length; i++, k++)
+                	filho2[i] = convNormalizada[k];
+         
+                
+                
+               // int[] filho1 = new int[8];
     
                 int pontoCorte1, qtdGenes, pontoCorte2;
 
-		if (r.nextDouble() <= TAXADECRUZAMENTO) {
+	/*	if (r.nextDouble() <= TAXADECRUZAMENTO) {
                         pontoCorte1 = r.nextInt(7) + 1; //gera numero de 1 a 7 (indices possiveis do cromossomo) 
                         
                         qtdGenes = r.nextInt(8-pontoCorte1);//qtd de genes que serao trocados, depende do ponto de corte
@@ -153,7 +172,7 @@ public class Genetico {
                             System.arraycopy(pai1, pontoCorte2, filho1, pontoCorte2, 8-pontoCorte2);
                           //  System.arraycopy(pai0, pontoCorte2, filho0, pontoCorte2, 8-pontoCorte2);
                         }
-            	} 
+            	}*/ 
                 
        //passando gemeos       
 		ArrayList<Individuo> filhos = new ArrayList<>();
@@ -164,32 +183,53 @@ public class Genetico {
 	}
 
 	private void contaEstagnacao(){
-		if (melhorAptidaoAnterior == -1 || populacao.getMelhor().getAptidao() != melhorAptidaoAnterior) {
+		if (melhorAptidaoAnterior <= -1 || populacao.getMelhor().getAptidao() != melhorAptidaoAnterior) {
 			melhorAptidaoAnterior = populacao.getMelhor().getAptidao();
+		//	System.out.println( populacao.getMelhor().getAptidao());
 			contEstagnar = 1;
 		} else {
 			contEstagnar++;
 		}
 	}
 	
-	//SOMA CONVOLU��O COM UMA TENTATIVA DE RAMPA
+	//SOMA CONVOLUÇÃO COM UMA TENTATIVA DE RAMPA
 	public static int[] somaConvolucao(int[] geneFilho1, int[] geneFilho2){
         int[] soma = new int[geneFilho1.length + geneFilho2.length - 1];
    
         for(int i = 0; i < soma.length; i++){
             for(int j = 0; j < geneFilho2.length; j++){
-                if((i-j) >= 0 && (i-j) < geneFilho1.length){
+                if((i-j) >= 0 &&(i-j) < geneFilho1.length){
                     soma[i] += geneFilho2[j] * geneFilho1[i-j];
                     //System.out.println(soma[i]);
-                    if(soma[i]>7){
-                    	soma[i]=1;
-                    }else{
+                   /* if(soma[i]>1){
                     	soma[i]=0;
-                    }
+                    }else{
+                    	soma[i]=1;
+                    }*/
                 }
             }
         }
         return soma;
   }
  
+	
+	//SAÍDA NORMALIZADA
+	public static int[] normalizarSaida(int[] soma){
+		int[] ConvNormalizada = new int[soma.length];
+		int min = Arrays.stream(soma).min().getAsInt();
+        int max = Arrays.stream(soma).max().getAsInt();
+		
+		for(int i=0; i<ConvNormalizada.length; i++){	
+			if(max-min==0){
+				ConvNormalizada[i] =0;
+			}else{
+				ConvNormalizada[i] = Math.abs((soma[i]-min)/(max-min));
+			}
+		}
+			
+		return ConvNormalizada;
+	}
+	
+	
+	
 }
