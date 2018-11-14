@@ -207,10 +207,11 @@ public class Prisioneiro {
     public List<Prisioneiro> gerarConvolucional(Prisioneiro parceiro) {
 
         // Crossover entre os genotipos
-        int[] genes1 = somaConvolucao(this.genes, parceiro.genes);
-        int[] genes2 = somaConvolucao(this.genes, parceiro.genes);
-        int[] genes3 = somaConvolucao(this.genes, parceiro.genes);
-        int[] genes4 = somaConvolucao(this.genes, parceiro.genes);
+        int[] genes1 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+        int[] genes2 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+        int[] genes3 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+        int[] genes4 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+
 
         List<Prisioneiro> filhos = new ArrayList<>(2);
 
@@ -258,7 +259,7 @@ public class Prisioneiro {
     /**
      * Sobrescrita do mÃ©todo toString para realizar relatÃ³rio.
      *
-     * @return A cadeia de genes do indivÃ­duo.
+     * @return A cadeia de genes do individuo.
      */
     @Override
     public String toString() {
@@ -313,18 +314,18 @@ public class Prisioneiro {
                 if ((i - j) >= 0 && (i - j) < geneFilho1.length) {
                     soma[i] += (int) geneFilho2[j] * geneFilho1[i - j];
                     //System.out.println(soma[i]);
-                    if (soma[i] > 1) {
+                   /* if (soma[i] > 1) {
                         soma[i] = 1;
                     } else {
                         soma[i] = 0;
-                    }
+                    }*/
                 }
             }
         }
         return soma;
     }
     
-    /SAÍDA NORMALIZADA
+    //SAÍDA NORMALIZADA
   	public static int[] normalizarSaida(int[] soma){
   		int[] ConvNormalizada = new int[soma.length];
   		int min = Arrays.stream(soma).min().getAsInt();
