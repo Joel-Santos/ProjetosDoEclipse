@@ -1,5 +1,8 @@
-package problemadamochila;
+package mochilaConvolucional;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -10,7 +13,9 @@ public class Genetico {
 	static final double TAXADECRUZAMENTO = 0.9;
 	static final boolean ELITISMO = false;
 	static final int TAMANHODAPOPULACAO = 8;
-	static final int MAXIMODEGERACOES = 1000;
+	static final int MAXIMODEGERACOES = 10;
+	//FileWriter fileWriter = null;
+	//private static final String FILE_HEADER = "Geração,Melhor Cromossomo,Aptidão,Peso";
         //-------------------------------------------------
         
 	private Populacao populacao;
@@ -25,6 +30,9 @@ public class Genetico {
             melhorAptidaoAnterior = -1;
         }
         
+        
+        
+        
         //Fluxo principal do algoritmo
 	public void Iniciar(){
 		int geracao = 0;
@@ -32,6 +40,7 @@ public class Genetico {
 
 		do {
                         System.out.println("Geracao " + geracao +  "| Melhor " + populacao.getMelhor());
+                        
 			
                         populacao = gerarPopulacao();
 
@@ -120,7 +129,7 @@ public class Genetico {
             return 0;
         }
 
-        //cruzamento com 2 pontos de corte aleatÃ³rios
+        //cruzamento com 2 pontos de corte aleatÃƒÂ³rios
 	private ArrayList<Individuo> cruzamento(ArrayList<Individuo> pais) {
 		
 		int[] pai0 = pais.get(0).getGenes();
@@ -132,23 +141,23 @@ public class Genetico {
 		int[] convNormalizada =  normalizarSaida(convolucao);
 		
           
-				int[] filho0 = new int[8]; 
+		
+				int[] filho0 = new int[8];   
                // System.arraycopy(convolucao,0,filho0,0,7);
 				for(int i=0; i<filho0.length;i++)
-		        	filho0[i] = convNormalizada[i];
-				
-                int[] filho1 = new int[8]; 
+		        	filho0[i] = convNormalizada[i]; //Inicio do cromossomo
+
+                int[] filho1 = new int[8];
+                int k=4;
+                for(int i=0; i<filho1.length; i++, k++)
+                	filho1[i] = convNormalizada[k];	 //Meio do cromossomo	
+                
+                int[] filho2 = new int[8]; 
                 //System.arraycopy(convolucao,7,filho2,0,7);
                 int j=convolucao.length/2;
                 for(int i=0; i<filho1.length; i++, j++)
-                	filho1[i] = convNormalizada[j];
+                	filho2[i] = convNormalizada[j];     //Metade/fim do cromossomo
                 
-
-                int[] filho2 = new int[8];
-                int k=4;
-                for(int i=0; i<filho2.length; i++, k++)
-                	filho2[i] = convNormalizada[k];
-         
                 
                 
                // int[] filho1 = new int[8];
@@ -192,7 +201,7 @@ public class Genetico {
 		}
 	}
 	
-	//SOMA CONVOLUÇÃO COM UMA TENTATIVA DE RAMPA
+	//SOMA CONVOLUÃ‡ÃƒO COM UMA TENTATIVA DE RAMPA
 	public static int[] somaConvolucao(int[] geneFilho1, int[] geneFilho2){
         int[] soma = new int[geneFilho1.length + geneFilho2.length - 1];
    
@@ -213,7 +222,7 @@ public class Genetico {
   }
  
 	
-	//SAÍDA NORMALIZADA
+	//SAÃ�DA NORMALIZADA
 	public static int[] normalizarSaida(int[] soma){
 		int[] ConvNormalizada = new int[soma.length];
 		int min = Arrays.stream(soma).min().getAsInt();

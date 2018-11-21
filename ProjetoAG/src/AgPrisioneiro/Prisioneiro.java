@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import problemadamochila.Individuo;
+import mochilaConvolucional.Individuo;
 
 /**
  * Classe de representação do indivíduo prisioneiro.

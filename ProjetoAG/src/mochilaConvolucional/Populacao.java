@@ -1,4 +1,4 @@
-package problemadamochila;
+package mochilaConvolucional;
 
 import java.util.ArrayList;
 import java.util.Collections;

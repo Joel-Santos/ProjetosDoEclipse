@@ -1,11 +1,12 @@
 package prisioneiroV2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Classe de representaçao do individuo prisioneiro.
+ * Classe de representaÃ§ao do individuo prisioneiro.
  *
  * @author Patrizia Chermont
  *
@@ -18,23 +19,23 @@ public class Prisioneiro {
     private int genes[];
 
     /**
-     * Gerador de NÃºmeros AleatÃ³rios.
+     * Gerador de NÃƒÂºmeros AleatÃƒÂ³rios.
      */
     private Random rng;
 
     /**
-     * Ãšltimo fitness calculado do indivÃ­duo.
+     * ÃƒÅ¡ltimo fitness calculado do indivÃƒÂ­duo.
      */
     private double fitness;
 
     /**
-     * NÃºmero aleatÃ³rio para ordenaÃ§Ã£o embaralhada.
+     * NÃƒÂºmero aleatÃƒÂ³rio para ordenaÃƒÂ§ÃƒÂ£o embaralhada.
      */
     private int iRandom;
 
     /**
-     * MÃ©todo construtor da classe. Inicializa um novo prisioneiro com uma
-     * cadeia aleatÃ³ria de genes.
+     * MÃƒÂ©todo construtor da classe. Inicializa um novo prisioneiro com uma
+     * cadeia aleatÃƒÂ³ria de genes.
      */
     public Prisioneiro() {
         genes = new int[GAConfig.nGenes];
@@ -53,10 +54,10 @@ public class Prisioneiro {
     }
 
     /**
-     * MÃ©todo construtor da classe. Inicializa um novo prisioneiro com uma
+     * MÃƒÂ©todo construtor da classe. Inicializa um novo prisioneiro com uma
      * cadeia definida de genes.
      *
-     * @param genes Cadeia booleana de cooperaÃ§Ãµes (true) e delaÃ§Ãµes (false).
+     * @param genes Cadeia booleana de cooperaÃƒÂ§ÃƒÂµes (true) e delaÃƒÂ§ÃƒÂµes (false).
      */
     public Prisioneiro(int[] genes) {
         this.genes = genes;
@@ -66,7 +67,7 @@ public class Prisioneiro {
     }
 
     /**
-     * Tempo de cadeia que o prisioneiro Ã© sentenciado quando confrontado com
+     * Tempo de cadeia que o prisioneiro ÃƒÂ© sentenciado quando confrontado com
      * outro prisioneiro.
      *
      * @param outro Comparsa a ser interrogado junto com o Prisioneiro.
@@ -92,14 +93,14 @@ public class Prisioneiro {
     }
 
     /**
-     * FunÃ§Ã£o de aptidÃ£o do indivÃ­duo. Neste algoritmo, o fitness Ã© calculado
-     * tomando por base o tempo de cadeia e o nÃºmero de cooperaÃ§Ãµes seguidas.
-     * Para efeitos de ordenaÃ§Ã£o, tomou-se como fÃ³rmula a expressÃ£o: fitness =
-     * 1/tempo + deltas, na qual deltas Ã© a premiaÃ§Ã£o por cooperaÃ§Ãµes
+     * FunÃƒÂ§ÃƒÂ£o de aptidÃƒÂ£o do indivÃƒÂ­duo. Neste algoritmo, o fitness ÃƒÂ© calculado
+     * tomando por base o tempo de cadeia e o nÃƒÂºmero de cooperaÃƒÂ§ÃƒÂµes seguidas.
+     * Para efeitos de ordenaÃƒÂ§ÃƒÂ£o, tomou-se como fÃƒÂ³rmula a expressÃƒÂ£o: fitness =
+     * 1/tempo + deltas, na qual deltas ÃƒÂ© a premiaÃƒÂ§ÃƒÂ£o por cooperaÃƒÂ§ÃƒÂµes
      * consecutivas.
      *
      * @param outro Comparsa interrogado
-     * @return AptidÃ£o do indivÃ­duo em ter menos tempo de cadeia.
+     * @return AptidÃƒÂ£o do indivÃƒÂ­duo em ter menos tempo de cadeia.
      */
     public double fitness(Prisioneiro outro) {
 
@@ -119,8 +120,8 @@ public class Prisioneiro {
             }
         }
 
-        // Pequeno hack para evitar divisÃ£o por zero.
-        // ImprovÃ¡vel, mas nÃ£o impossÃ­vel.
+        // Pequeno hack para evitar divisÃƒÂ£o por zero.
+        // ImprovÃƒÂ¡vel, mas nÃƒÂ£o impossÃƒÂ­vel.
         if (tempo == 0) {
             tempo = 0.000001;
         }
@@ -130,19 +131,19 @@ public class Prisioneiro {
     }
 
     /**
-     * Indica se o indivÃ­duo cooperou o delatou com a informaÃ§Ã£o.
+     * Indica se o indivÃƒÂ­duo cooperou o delatou com a informaÃƒÂ§ÃƒÂ£o.
      *
-     * @param i PosiÃ§Ã£o da cadeia de genes.
-     * @return true, se o indivÃ­duo cooperou, ou false, caso contrÃ¡rio.
+     * @param i PosiÃƒÂ§ÃƒÂ£o da cadeia de genes.
+     * @return true, se o indivÃƒÂ­duo cooperou, ou false, caso contrÃƒÂ¡rio.
      */
     public boolean cooperou(int i) {
         return gene(i) == 1;
     }
 
     /**
-     * Gene do indivÃ­duo.
+     * Gene do indivÃƒÂ­duo.
      *
-     * @param i PosiÃ§Ã£o da cadeia de genes.
+     * @param i PosiÃƒÂ§ÃƒÂ£o da cadeia de genes.
      * @return Valor do gene (true ou false).
      */
     public int gene(int i) {
@@ -150,12 +151,12 @@ public class Prisioneiro {
     }
 
     /**
-     * Gera filhos com um parceiro. SerÃ¡ utilizado apenas um ponto de cruzamento
-     * na metade da cadeia de genes. O mÃ©todo gera 4 novos filhos, sendo duas
-     * duplas de gÃªmeos.
+     * Gera filhos com um parceiro. SerÃƒÂ¡ utilizado apenas um ponto de cruzamento
+     * na metade da cadeia de genes. O mÃƒÂ©todo gera 4 novos filhos, sendo duas
+     * duplas de gÃƒÂªmeos.
      *
      * @param parceiro Parceiro utilizado no cruzamento de genes.
-     * @return Lista de 4 novos filhos, sendo duas duplas de gÃªmeos.
+     * @return Lista de 4 novos filhos, sendo duas duplas de gÃƒÂªmeos.
      */
     public List<Prisioneiro> gerar(Prisioneiro parceiro) {
 
@@ -169,13 +170,13 @@ public class Prisioneiro {
         List<Prisioneiro> filhos = new ArrayList<>(2);
 
         for (int i = 0; i < GAConfig.nGenes; i++) {
-            // Crossover entre os genÃ³tipos
+            // Crossover entre os genÃƒÂ³tipos
             genes1[i] = (i < metade) ? this.gene(i) : parceiro.gene(i);
             genes2[i] = (i < metade) ? parceiro.gene(i) : this.gene(i);
             genes3[i] = (i < metade) ? this.gene(i) : parceiro.gene(i);
             genes4[i] = (i < metade) ? parceiro.gene(i) : this.gene(i);
 
-            //Aplicacao de mutaÃ§Ã£o no gene
+            //Aplicacao de mutaÃƒÂ§ÃƒÂ£o no gene
             if (rng.nextDouble() < GAConfig.pMutacao) {
                 genes1[i] = (genes1[i] == 1 ? 0 : 1);
             }
@@ -202,7 +203,7 @@ public class Prisioneiro {
      * Gera filhos com um parceiro utilizando a soma convolucional
      *
      * @param parceiro Parceiro utilizado no cruzamento de genes.
-     * @return Lista de 4 novos filhos, sendo duas duplas de gÃªmeos.
+     * @return Lista de 4 novos filhos, sendo duas duplas de gÃƒÂªmeos.
      */
     public List<Prisioneiro> gerarConvolucional(Prisioneiro parceiro) {
 
@@ -241,10 +242,10 @@ public class Prisioneiro {
     }
 
     /**
-     * Realiza uma disputa entre dois indivÃ­duos.
+     * Realiza uma disputa entre dois indivÃƒÂ­duos.
      *
-     * @param outro Comparsa com qual serÃ¡ realizada a disputa.
-     * @return O indivÃ­duo vencedor (o comparsa ou o prÃ³rpio indivÃ­duo).
+     * @param outro Comparsa com qual serÃƒÂ¡ realizada a disputa.
+     * @return O indivÃƒÂ­duo vencedor (o comparsa ou o prÃƒÂ³rpio indivÃƒÂ­duo).
      */
     public Prisioneiro disputar(Prisioneiro outro) {
         boolean venci = (this.fitness(outro) > outro.fitness(this));
@@ -257,7 +258,7 @@ public class Prisioneiro {
     }
 
     /**
-     * Sobrescrita do mÃ©todo toString para realizar relatÃ³rio.
+     * Sobrescrita do mÃƒÂ©todo toString para realizar relatÃƒÂ³rio.
      *
      * @return A cadeia de genes do individuo.
      */
@@ -279,27 +280,27 @@ public class Prisioneiro {
     }
 
     /**
-     * MÃ©todo get do nÃºmero aleatÃ³rio para ordenaÃ§Ã£o embaralhada.
+     * MÃƒÂ©todo get do nÃƒÂºmero aleatÃƒÂ³rio para ordenaÃƒÂ§ÃƒÂ£o embaralhada.
      *
-     * @return o nÃºmero aleatÃ³rio do IndivÃ­duo.
+     * @return o nÃƒÂºmero aleatÃƒÂ³rio do IndivÃƒÂ­duo.
      */
     public int getRandom() {
         return iRandom;
     }
 
     /**
-     * MÃ©todo set do Fitness do indivÃ­duo.
+     * MÃƒÂ©todo set do Fitness do indivÃƒÂ­duo.
      *
-     * @param fitness AptidÃ£o do indivÃ­duo.
+     * @param fitness AptidÃƒÂ£o do indivÃƒÂ­duo.
      */
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
 
     /**
-     * MÃ©todo GET do fitness do indivÃ­duo.
+     * MÃƒÂ©todo GET do fitness do indivÃƒÂ­duo.
      *
-     * @return AptdÃ£o do indivÃ­duo
+     * @return AptdÃƒÂ£o do indivÃƒÂ­duo
      */
     public double getFitness() {
         return this.fitness;
@@ -325,7 +326,7 @@ public class Prisioneiro {
         return soma;
     }
     
-    //SAÍDA NORMALIZADA
+    //SAÃ�DA NORMALIZADA
   	public static int[] normalizarSaida(int[] soma){
   		int[] ConvNormalizada = new int[soma.length];
   		int min = Arrays.stream(soma).min().getAsInt();
