@@ -58,7 +58,7 @@ public class Populacao{
 		List<Prisioneiro> filhos = new ArrayList<Prisioneiro>();
 		for (int i = 0; i < GAConfig.nPrisioneiros/2; i = i + 2){
 			filhos.addAll(
-					prisioneiros.get(i).gerarConvolucional(
+					prisioneiros.get(i).gerar(
 							prisioneiros.get(i+1)
 					)
 			);

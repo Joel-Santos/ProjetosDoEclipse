@@ -208,15 +208,21 @@ public class Prisioneiro {
     public List<Prisioneiro> gerarConvolucional(Prisioneiro parceiro) {
 
         // Crossover entre os genotipos
-        int[] genes1 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
-        int[] genes2 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
-        int[] genes3 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
-        int[] genes4 = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
-
+        int[] genes = normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+              
+        int[] filho1 = new int[GAConfig.nGenes];
+        int k=15;
+        for(int i=0; i<GAConfig.nGenes; i++, k++)
+        	filho1[i] = genes[k];	 //Meio do cromossomo	
+        
+        int[] genes1 = filho1;
+        int[] genes2 = filho1;//normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+        int[] genes3 = filho1;//normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
+        int[] genes4 = filho1;//normalizarSaida(somaConvolucao(this.genes, parceiro.genes));
 
         List<Prisioneiro> filhos = new ArrayList<>(2);
 
-        for (int i = 0; i < GAConfig.nGenes; i++) {
+        for (int i = 0; i < genes1.length ;i++) {
 
             //Aplicacao de mutacao no gene
             if (rng.nextDouble() < GAConfig.pMutacao) {

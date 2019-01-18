@@ -60,8 +60,8 @@ public class SomaConvolucao {
         
         
         // TODO code application logic here
-        int[] x = new int[]{1,1,0,1,0,1,1,0}; 
-        int[] h = new int[]{0,1,0,0,1,1,0,1}; 
+        int[] x = new int[]{1,1,1,1,0,0,1,0}; 
+        int[] h = new int[]{0,1,1,0,1,1,0,1}; 
         int[] soma = somaConvolucao(x, h);
         
         int[] ConvNormalizada = normalizar(soma);

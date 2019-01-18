@@ -13,7 +13,7 @@ public class Genetico {
 	static final double TAXADECRUZAMENTO = 0.9;
 	static final boolean ELITISMO = false;
 	static final int TAMANHODAPOPULACAO = 8;
-	static final int MAXIMODEGERACOES = 10;
+	static final int MAXIMODEGERACOES = 50;
 	//FileWriter fileWriter = null;
 	//private static final String FILE_HEADER = "Geração,Melhor Cromossomo,Aptidão,Peso";
         //-------------------------------------------------
@@ -185,8 +185,8 @@ public class Genetico {
                 
        //passando gemeos       
 		ArrayList<Individuo> filhos = new ArrayList<>();
-		filhos.add(new Individuo(filho0));
-		filhos.add(new Individuo(filho0));
+		filhos.add(new Individuo(filho1));
+		filhos.add(new Individuo(filho1));
 
 		return filhos;
 	}
